@@ -1,35 +1,50 @@
-<template>
-  <div class="navbar">
-    <div class="app-name" style="cursor: pointer;">
-      <!-- <img src="../../assets/cryptocurrency.png" class="icon" /> -->
-      <h2>eShoppers</h2>
-    </div>
-    <div class="auth">
+<<template>
+    <div class="navbar">
+        <div class="app-name" @click="router.push('/')">
+            <h2>eShoppers</h2>
+        </div>
 
-    <h3 v-show="!username" @click="isRegisterVisible = true">Register</h3>
-    <h3 v-show="!username" @click="isLoginVisible = true">Login</h3>
-    </div>
-    <div class="app-username" v-show="username">
-      <h3 @click="toggleMenu" class="username">{{ username }}</h3>
+        <div class="right-section">
 
-      <div class="dropdown" v-show="showMenu"> 
-        <span @click="goPortfolio">Portfolio</span>
-        <span @click="logout">Log out</span>
-      </div>
-    </div>
+            <!-- CART ICON -->
+            <img 
+                src="../../assets/shopping-cart.png"
+                class="cart-icon"
+                alt="Cart"
+                @click="router.push('/cart')"
+            />
+
+            <!-- GUEST -->
+            <div class="auth" v-if="!username">
+                <h3 @click="isRegisterVisible = true">Register</h3>
+                <h3 @click="isLoginVisible = true">Login</h3>
+            </div>
+
+            <!-- LOGGED IN -->
+            <div class="app-username" v-else>
+                <h3 class="username" @click="toggleMenu">{{ username }}</h3>
+
+                <div class="dropdown" v-show="showMenu">
+                    <span @click="goPortfolio">Portfolio</span>
+                    <span @click="logout">Log out</span>
+                </div>
+            </div>
+
+        </div>
 
         <Login 
-            :visible="isLoginVisible" 
+            :visible="isLoginVisible"
             @update="handleLogin"
             @close="isLoginVisible = false"
         />
         <Register 
-            :visible="isRegisterVisible" 
+            :visible="isRegisterVisible"
             @update="handleRegister"
             @close="isRegisterVisible = false"
         />
-  </div>
+    </div>
 </template>
+
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue' 
@@ -77,56 +92,65 @@ function handleRegister(){
 </script>
 
 <style scoped>
-.auth{
-  display: flex;
-  flex-direction: row;
-}
-.navbar { 
-  width: 100vw;
-  height: 8vh;  
-  position: sticky;
-  top: 0;
-  border-bottom: 1px solid gray;
-  /* background-color: #242400; */
-  background-color: #242424;
-  display: flex; 
-  justify-content: space-between;
-  align-items: center;   
-  z-index: 100; 
+.navbar {
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #242424;
+    border-bottom: 1px solid gray; 
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .app-name {
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
-    gap: 0.5rem;  
-    margin-left: 1vw;   
-}
-
-.icon {
-    height: 2.8vw;
-    width: 2.8vw;
-}
-h2 {
     color: white;
-    margin: 0;                /* remove default margin */
-    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 2vw;
 }
 
-h3{
-  margin-right: 1vw;
-  cursor: pointer;
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: auto;
+    margin-right: 2vw;
+}
+
+/* cart icon */
+.cart-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.cart-icon:hover {
+    opacity: 0.8;
+}
+
+.auth h3 {
+    color: white;
+    cursor: pointer;
+    margin: 0;
 }
 
 .app-username {
     position: relative;
     cursor: pointer;
-} 
+}
+
+.username {
+    color: white;
+    margin: 0;
+}
 
 .dropdown {
     position: absolute;
-    top: 100%;
     right: 0;
+    top: 120%;
     background: #2c2c2c;
     border: 1px solid #444;
     border-radius: 6px;
@@ -134,11 +158,12 @@ h3{
     display: flex;
     flex-direction: column;
     min-width: 150px;
-    z-index: 10;
+    z-index: 50;
 }
 
 .dropdown span {
     padding: 0.5rem 1rem;
+    color: white;
     cursor: pointer;
 }
 

@@ -1,11 +1,11 @@
 <template>
     <div class="product-display show">
-        <div class="product-grid">
-            <div 
-                v-for="product in productStore.products" 
-                :key="product.id" 
-                class="product-card"
-            >
+        <div class="product-grid"><div 
+            v-for="product in productStore.products" 
+            :key="product.id" 
+            class="product-card"
+            @click="goToProduct(product)"
+        >
                 <div class="image-wrapper">
                     <img 
                         :src="productImages[`../../assets/products/${product.name}.png`]" 
@@ -32,13 +32,22 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import { useProductStore } from '../../store/product.store'
+import type { ProductResponse } from '../../types/product'
+import { useRouter } from 'vue-router'
 
+
+const router = useRouter()
 const productStore = useProductStore()
 
 onMounted(async () => {
     await productStore.getAllProducts()
 })
 const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
+
+function goToProduct(product: ProductResponse) {
+    productStore.selectedProduct = product
+    router.push("/product")
+}
 
 </script>
 
@@ -93,6 +102,9 @@ const productImages = import.meta.glob('../../assets/products/*.png', { eager: t
 .product-info {
     padding: 1vh;
     font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .product-info h3 {
