@@ -1,12 +1,14 @@
 import axios from "axios" 
 import type { CartResponse } from "../types/cart"
+import type { OrderResponse } from "../types/order"
 
 const API_BASE_URL = import.meta.env.VITE_API_URL
 
-export async function getCart(id: number): Promise<CartResponse> {
+export async function getOrders(): Promise<OrderResponse[]> {
+    const userId = Number(localStorage.getItem('userId'))
     try {
-        const res = await axios.get<CartResponse>(
-            `${API_BASE_URL}/api/cart/${id}`, 
+        const res = await axios.get<OrderResponse[]>(
+            `${API_BASE_URL}/api/orders/user/${userId}`, 
             { withCredentials: true }
         )
         return res.data

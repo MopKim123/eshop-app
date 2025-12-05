@@ -8,6 +8,12 @@
 
             <!-- CART ICON -->
             <img 
+                src="../../assets/box.png"
+                class="cart-icon"
+                alt="Cart"
+                @click="router.push('/order')"
+            />
+            <img 
                 src="../../assets/shopping-cart.png"
                 class="cart-icon"
                 alt="Cart"
