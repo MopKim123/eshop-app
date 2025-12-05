@@ -1,6 +1,6 @@
-<<template>
+<template>
     <div class="navbar">
-        <div class="app-name" @click="router.push('/')">
+        <div class="app-name" @click="router.push('/home')">
             <h2>eShoppers</h2>
         </div>
 
@@ -50,6 +50,7 @@
 import { onMounted, ref } from 'vue' 
 import router from '../../router'; 
 import { useAuthStore } from '../../store/auth.store';
+import { useCartStore } from '../../store/cart.store';
 
 const isRegisterVisible = ref(false)
 const isLoginVisible = ref(false)
@@ -59,31 +60,31 @@ const authStore = useAuthStore()
 
 
 onMounted(async () => {
-  username.value = localStorage.getItem("username")
+    username.value = localStorage.getItem("username")
 });
 
 function toggleMenu() {
-  showMenu.value = !showMenu.value;
+    showMenu.value = !showMenu.value;
 }
 
 function goPortfolio() {
-  showMenu.value = false
-  router.push("/portfolio")
+    showMenu.value = false
+    router.push("/portfolio")
 }
 
 function logout() {
-  localStorage.removeItem("crypto_username")
-  localStorage.removeItem("crypto_token")
-  localStorage.removeItem("crypto_user_id")
-  authStore.clear()
+    localStorage.removeItem("crypto_username")
+    localStorage.removeItem("crypto_token")
+    localStorage.removeItem("crypto_user_id")
+    authStore.clear()
 
-  showMenu.value = false
-  username.value = null
-  router.push("/")
+    showMenu.value = false
+    username.value = null
+    router.push("/")
 }
 
 function handleLogin(){
-  username.value = localStorage.getItem("crypto_username")
+    username.value = localStorage.getItem("crypto_username")
 }
 function handleRegister(){
   isLoginVisible.value = true

@@ -4,6 +4,7 @@ import type { LoginRequest, LoginResponse } from '../types/auth'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
+        userId: Number(localStorage.getItem('userId')), 
         username: '', 
     }),
 

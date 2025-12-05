@@ -2,11 +2,13 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import ProductView from '../views/ProductView.vue'
+import CartView from '../views/CartView.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', component: Login },  
   { path: '/home', component: Home },  
   { path: '/product', component: ProductView },  
+  { path: '/cart', component: CartView },  
 ]
 
 const router = createRouter({
