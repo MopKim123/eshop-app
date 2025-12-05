@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="app-name" style="cursor: pointer;">
-      <img src="../../assets/cryptocurrency.png" class="icon" />
+      <!-- <img src="../../assets/cryptocurrency.png" class="icon" /> -->
       <h2>eShoppers</h2>
     </div>
     <div class="auth">
