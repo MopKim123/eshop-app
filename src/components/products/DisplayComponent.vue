@@ -16,6 +16,7 @@
                         src="../../assets/add.png" 
                         class="add-to-cart" 
                         alt="Add to cart"
+                        @click.stop="addProductToCart(product)"
                     />
                 </div> 
                 <div class="product-info">
@@ -34,6 +35,7 @@ import { onMounted } from 'vue'
 import { useProductStore } from '../../store/product.store'
 import type { ProductResponse } from '../../types/product'
 import { useRouter } from 'vue-router'
+import { addToCart } from '../../services/cart'
 
 
 const router = useRouter()
@@ -48,6 +50,12 @@ function goToProduct(product: ProductResponse) {
     productStore.selectedProduct = product
     router.push("/product")
 }
+
+function addProductToCart(product: ProductResponse) {
+    addToCart(product.id, 1)
+}
+
+
 
 </script>
 

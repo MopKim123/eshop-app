@@ -21,7 +21,13 @@
                 <span class="value">{{ product.stock }}</span>
             </div>
 
-            <button class="add-cart-btn">
+            <!-- Quantity input -->
+            <div class="info">
+                <span class="label">Quantity:</span>
+                <input type="number" v-model.number="quantity" min="1" :max="product.stock"/>
+            </div>
+
+            <button class="add-cart-btn" @click="addProductToCart(product)">
                 Add to Cart
             </button>
         </div>
@@ -29,13 +35,27 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue" 
+import { computed, ref } from "vue" 
 import { useProductStore } from "../../store/product.store";
+import type { ProductResponse } from "../../types/product"
+import { addToCart } from "../../services/cart";
 
 const productStore = useProductStore()
 const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
 
 const product = computed(() => productStore.selectedProduct)
+const quantity = ref(1)  
+
+async function addProductToCart(product: ProductResponse) {
+    if (!product.id) return
+
+    try {
+        await addToCart(product.id, quantity.value) // assuming userId = 1 for now
+        alert(`Added ${quantity.value} x ${product.name} to cart!`)
+    } catch (error) {
+        console.error("Failed to add product to cart:", error)
+    }
+}
 </script>
 
 <style scoped>
@@ -70,7 +90,7 @@ const product = computed(() => productStore.selectedProduct)
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* puts content at top left */
+    align-items: flex-start;
     gap: 1rem;
 }
 
@@ -98,5 +118,4 @@ const product = computed(() => productStore.selectedProduct)
 .add-cart-btn:hover {
     background: #444;
 }
-
 </style>

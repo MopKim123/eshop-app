@@ -51,17 +51,17 @@ export async function removeCartItem(cartItemId: number): Promise<CartResponse> 
     }
 }
 
-export async function addToCart(productId: number, quantity = 1): Promise<CartResponse> {
+export async function checkout(): Promise<CartResponse> {
     const userId = Number(localStorage.getItem('userId'))
     try {
         const res = await axios.post<CartResponse>(
-            `${API_BASE_URL}/api/cart/${userId}/add`,
+            `${API_BASE_URL}/api/orders/checkout/${userId}`,
             null,  
-            {
-                params: { productId, quantity }, 
+            {  
                 withCredentials: true
             }
         )
+        console.log("Checkout response:", res.data)
         return res.data
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
