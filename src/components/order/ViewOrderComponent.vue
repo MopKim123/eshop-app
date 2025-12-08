@@ -56,6 +56,14 @@
                     >
                         Cancel Order
                     </button>
+                    <button 
+                        v-if="!canCancel(order) && order.status === 'PENDING'"
+                        class="complete-btn"
+                        @click="complete(order.id)"
+                    >
+                        Order Received
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -87,7 +95,13 @@ onMounted(async () => {
 // Filter orders by selected status
 const filteredOrders = computed(() => 
     orderStore.order.filter(o => o.status === currentStatus.value)
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 )
+async function complete(orderId: number) {
+    await orderStore.updateOrderStatus(orderId, 'COMPLETED')
+    toast.success("Order marked as completed!")
+}
+
 
 function canCancel(order: OrderResponse): boolean {
     if (order.status !== "PENDING") return false
@@ -193,14 +207,26 @@ async function cancel(orderId: number) {
     margin-left: 1rem;
     padding: 0.5rem 1rem;
     background: #a00000;
-    color: white;
-    border: 1px solid white;
+    color: white; 
     cursor: pointer;
     border-radius: 4px;
 }
 
 .cancel-btn:hover {
     background: #cc0000;
+}
+
+.complete-btn {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background: #4CAF50;
+    color: white; 
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.complete-btn:hover {
+    background: #16AF50;
 }
 
 </style>

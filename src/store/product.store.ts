@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'  
 import type { ProductResponse } from '../types/product'
 import { getProducts } from '../services/product'
+import { toast } from 'vue3-toastify'
 
 export const useProductStore = defineStore('product', {
     state: () => ({
@@ -20,9 +21,8 @@ export const useProductStore = defineStore('product', {
             try {   
                 const data = await getProducts();    
                 this.setProducts(data)    
-                console.log("products",data)                 
             } catch (err) {
-                // toast.error(`User not found! ${err}`) 
+                toast.error(`Products not found! ${err}`) 
             }
         },  
     }

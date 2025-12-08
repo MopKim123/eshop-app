@@ -62,10 +62,11 @@ import { ref, computed, onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { useCartStore } from "../../store/cart.store"
 import { toast } from "vue3-toastify"
+import type { CartResponse } from "../../types/cart"
 
 const cartStore = useCartStore()
 const router = useRouter()
-const cart = ref(cartStore.cart)
+const cart = ref({} as CartResponse)
 
 const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
 
@@ -85,11 +86,11 @@ function updateItem(item: any) {
 
 function removeItem(cartItemId: number) {
     cartStore.removeCartItem(cartItemId)  
-    cart.value.items = cart.value.items.filter(i => i.productId !== cartItemId)
+    cart.value.items = cart.value.items.filter(i => i.id !== cartItemId)
 }
 
 function goToPayment() {
-    if(cartStore.cart?.id){
+    if(!cartStore.cart.items.length){
         toast.info("Cart is empty!")
         return
     }

@@ -64,9 +64,9 @@ const totalAmount = computed(() => {
     return cart.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 })
 
-function placeOrder() { 
-    checkout()
-    getOrders()
+async function placeOrder() { 
+    await checkout()
+    await getOrders()
     toast.success(`Order placed! Total: ₱${totalAmount.value.toFixed(2)}`)
     router.push("/order")
 }

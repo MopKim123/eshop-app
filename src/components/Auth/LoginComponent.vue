@@ -33,9 +33,8 @@ async function login() {
     }
 
     try { 
-        await authStore.login(request.value) 
+        await authStore.login(request.value, router) 
         request.value = {} as UserRequest 
-        router.push('/home')
     } catch (error) {  
         toast.error("Something went wrong!")
     } 

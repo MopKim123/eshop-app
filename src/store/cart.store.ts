@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'   
 import type { CartResponse } from '../types/cart'
 import { getCart, removeCartItem, updateCartItem as apiUpdateCartItem } from '../services/cart'
+import { toast } from 'vue3-toastify'
 
 export const useCartStore = defineStore('cart', {
     state: () => ({
@@ -18,10 +19,9 @@ export const useCartStore = defineStore('cart', {
             const userId = Number(localStorage.getItem('userId'))
             try {   
                 const data = await getCart(userId);    
-                this.setCart(data)    
-                console.log("cart",data)                 
+                this.setCart(data)          
             } catch (err) {
-                // toast.error(`User not found! ${err}`) 
+                toast.error(`Cart not found! ${err}`) 
             }
         },  
         

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'    
 import type { OrderResponse } from '../types/order'
 import { getOrders } from '../services/order'
+import { toast } from 'vue3-toastify'
 
 export const useOrderStore = defineStore('order', {
     state: () => ({
@@ -18,9 +19,8 @@ export const useOrderStore = defineStore('order', {
             try {   
                 const data = await getOrders();    
                 this.setOrder(data)    
-                console.log("order",data)                 
             } catch (err) {
-                // toast.error(`User not found! ${err}`) 
+                toast.error(`Order/s not found! ${err}`) 
             }
         },   
 
