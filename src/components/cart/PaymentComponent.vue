@@ -46,7 +46,7 @@
 import { ref, computed, onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { useCartStore } from "../../store/cart.store"
-import { checkout } from "../../services/order"
+import { checkout, getOrders } from "../../services/order"
 
 const cartStore = useCartStore()
 const router = useRouter()
@@ -67,7 +67,8 @@ function placeOrder() {
     
     alert(`Order placed! Total: ₱${totalAmount.value.toFixed(2)}`)
     checkout()
-    router.push("/home")
+    getOrders()
+    router.push("/order")
 }
 </script>
 

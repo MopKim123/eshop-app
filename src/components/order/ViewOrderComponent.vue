@@ -32,7 +32,14 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in order.items" :key="item.productId">
-                            <td>{{ item.productName }}</td>
+                            <td class="product-column">
+                                <img 
+                                    :src="productImages[`../../assets/products/${item.productName}.png`]" 
+                                    alt="product" 
+                                    class="col-img"
+                                />
+                                {{ item.productName }}
+                            </td>
                             <td>₱{{ Number(item.price).toFixed(2) }}</td>
                             <td>{{ item.quantity }}</td>
                             <td>₱{{ parseFloat(item.subtotal).toFixed(2) }}</td>
@@ -42,6 +49,13 @@
 
                 <div class="order-total">
                     <strong>Total: ₱{{ parseFloat(order.totalAmount).toFixed(2) }}</strong>
+                    <button 
+                        v-if="canCancel(order)"
+                        class="cancel-btn"
+                        @click="cancel(order.id)"
+                    >
+                        Cancel Order
+                    </button>
                 </div>
             </div>
         </div>
@@ -55,8 +69,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useOrderStore } from '../../store/order.store'
+import type { OrderResponse } from '../../types/order'
+import { cancelOrder } from '../../services/order'
 
 const orderStore = useOrderStore()
+const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
 
 const statuses = ['PENDING', 'COMPLETED', 'CANCELLED']
 const currentStatus = ref('PENDING')
@@ -69,6 +86,27 @@ onMounted(async () => {
 // Filter orders by selected status
 const filteredOrders = computed(() => 
     orderStore.order.filter(o => o.status === currentStatus.value)
+)
+
+function canCancel(order: OrderResponse): boolean {
+    if (order.status !== "PENDING") return false
+
+    const created = new Date(order.createdAt).getTime()
+    const now = Date.now()
+
+    const daysPassed = (now - created) / (1000 * 60 * 60 * 24)
+    return daysPassed < 7
+}
+
+async function cancel(orderId: number) {
+    cancelOrder(orderId)
+    orderStore.updateOrderStatus(orderId, 'CANCELLED')
+}
+
+const sortedOrders = computed(() =>
+    [...orderStore.order].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
 )
 </script>
 
@@ -126,6 +164,19 @@ const filteredOrders = computed(() =>
     text-align: left;
     padding: 8px;
     color: white;
+} 
+
+.product-column{
+    display: flex;
+    align-items: center;
+}
+
+.col-img {
+    width: 3vw;
+    height: 3vw;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 1vw;
 }
 
 .order-table tr {
@@ -142,4 +193,19 @@ const filteredOrders = computed(() =>
     text-align: center;
     margin-top: 2rem;
 }
+
+.cancel-btn {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background: #a00000;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.cancel-btn:hover {
+    background: #cc0000;
+}
+
 </style>

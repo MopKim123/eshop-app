@@ -24,13 +24,11 @@ export const useOrderStore = defineStore('order', {
             }
         },   
 
-        // async removeCartItem(cartItemId: number) {
-        //     try {
-        //         const updatedCart = await removeCartItem(cartItemId)
-        //         this.cart = updatedCart
-        //     } catch (error) {
-        //         console.error("Failed to remove cart item:", error)
-        //     }
-        // }
+        updateOrderStatus(orderId: number, newStatus: string) {
+            const target = this.order.find(o => o.id === orderId)
+            if (target) {
+                target.status = newStatus
+            }
+        }
     }
 })
