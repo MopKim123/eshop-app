@@ -99,18 +99,21 @@ function goToPayment() {
 </script>
 
 
-
 <style scoped>
 .cart-container { 
     min-height: 91.5vh;
     background-color: #121212;
     padding: 2% 10%;
+    box-sizing: border-box;
 }
 
+/* Header */
 .cart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* wrap for smaller screens */
+    gap: 1vh;
 }
 
 .pay-btn {
@@ -120,11 +123,13 @@ function goToPayment() {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
+/* Table */
 .cart-table {
     width: 100%;
-    border-collapse: collapse; /* removes default borders */
+    border-collapse: collapse;
     margin-top: 20px;
     background-color: #242424;
 }
@@ -133,7 +138,7 @@ function goToPayment() {
 .cart-table td {
     padding: 10px 5px;
     text-align: left;
-    border: none; /* invisible borders */
+    border: none;
 }
 
 .items-header {
@@ -167,6 +172,7 @@ function goToPayment() {
     text-align: center;
 }
 
+/* Remove button */
 .remove-btn {
     background: #ff4c4c;
     color: white;
@@ -175,20 +181,85 @@ function goToPayment() {
     border-radius: 4px;
     cursor: pointer;
 }
-
 .remove-btn:hover {
     background: #ff1f1f;
 }
 
+/* Total */
 .total-box {
     margin-top: 20px;
     padding: 15px;
     text-align: right;
 }
 
+/* Empty cart message */
 .empty {
     margin-top: 20px;
     text-align: center;
 }
 
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
+    .cart-container {
+        padding: 2% 5%;
+    }
+
+    .col-img {
+        width: 50px;
+        height: 50px;
+        margin-left: 1vw;
+    }
+
+    .col-quantity-input {
+        width: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 2% 2%;
+    }
+
+    .cart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pay-btn {
+        width: 100%;
+        margin-top: 1vh;
+    }
+
+    .cart-table th, 
+    .cart-table td {
+        font-size: 0.9rem;
+        padding: 6px 4px;
+    }
+
+    .col-img {
+        width: 45px;
+        height: 45px;
+        margin-left: 0;
+    }
+
+    .col-quantity-input {
+        width: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        white-space: nowrap;
+    }
+
+    .total-box {
+        text-align: center;
+    }
+}
 </style>

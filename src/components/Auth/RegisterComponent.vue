@@ -100,4 +100,22 @@ button:active{
   opacity: 1;
   pointer-events: all;
 } 
+
+@media (max-width: 600px) {
+    .modal {
+        padding: 4vh 4vw;
+        width: 95%;
+    }
+
+    button {
+        width: 50%;
+        padding: 2vw;
+        margin: 0 auto;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
 </style>

@@ -126,11 +126,13 @@ async function cancel(orderId: number) {
     min-height: 91.5vh;
     background-color: #121212;
     padding: 2% 10%;
+    box-sizing: border-box;
 }
 
 .status-tabs {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap; /* wrap on small screens */
     margin-bottom: 2vh;
 }
 
@@ -153,19 +155,23 @@ async function cancel(orderId: number) {
     padding: 1rem;
     margin-bottom: 2vh;
     border-radius: 6px;
+    overflow-x: auto; /* allow horizontal scroll on small screens */
 }
 
 .order-header {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /* wrap info on small screens */
     margin-bottom: 1rem;
     font-size: 0.95rem;
+    gap: 0.5rem;
 }
 
 .order-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    min-width: 480px; /* ensures horizontal scroll on small devices */
 }
 
 .order-table th,
@@ -178,14 +184,14 @@ async function cancel(orderId: number) {
 .product-column{
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .col-img {
-    width: 3vw;
-    height: 3vw;
+    width: 45px;
+    height: 45px;
     object-fit: cover;
     border-radius: 6px;
-    margin-right: 1vw;
 }
 
 .order-table tr {
@@ -229,4 +235,46 @@ async function cancel(orderId: number) {
     background: #16AF50;
 }
 
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
+    .orders-container {
+        padding: 2% 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .col-img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .order-header {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .orders-container { 
+        padding: 2% 5%; 
+    }
+    .order-card{
+        width: 87%;
+        text-align: left;
+    }
+    .order-table {
+        min-width: 400px;
+    }
+
+    .col-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .order-header {
+        flex-direction: column;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+    }
+}
 </style>

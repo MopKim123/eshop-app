@@ -2,9 +2,11 @@
     <div class="payment-container">
         <h2>Order Overview</h2>
 
-        <table v-if="cart.items?.length" class="cart-table">
+        <div class="table-wrapper" v-if="cart.items?.length">
+        <table class="cart-table">
             <thead>
                 <tr class="items-header">
+                    <th></th>
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -18,7 +20,9 @@
                             :src="productImages[`../../assets/products/${item.productName}.png`]" 
                             alt="product" 
                             class="col-img"
-                        />
+                        /> 
+                    </td>
+                    <td> 
                         {{ item.productName }}
                     </td>
                     <td>₱{{ item.price }}</td>
@@ -27,6 +31,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
 
         <div class="total-box" v-if="cart.items?.length">
             <h2>Total: ₱{{ totalAmount.toFixed(2) }}</h2>
@@ -72,21 +77,25 @@ async function placeOrder() {
 }
 </script>
 
+
 <style scoped>
 .payment-container {
     min-height: 91.5vh;
     background-color: #121212;
     padding: 2% 10%;
+    box-sizing: border-box;
 }
 
-h2 {
-    margin-bottom: 20px;
+/* Wrap table in a scrollable container */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
 }
- 
+
+/* Table */
 .cart-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
     background-color: #242424;
 }
 
@@ -95,11 +104,11 @@ h2 {
     padding: 10px 5px;
     text-align: left;
     border: none;
+    color: white;
 }
 
 .items-header {
     font-weight: bold;
-    color: white;
 }
 
 .item-row {
@@ -125,6 +134,7 @@ h2 {
     text-align: right;
 }
 
+/* Buttons */
 .order-btn { 
     background: #4CAF50;
     color: white;
@@ -132,6 +142,7 @@ h2 {
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    margin-top: 1.5rem;
 }
 
 .order-btn:disabled {
@@ -143,8 +154,52 @@ h2 {
     background: #45a049;
 }
 
+/* Empty cart */
 .empty {
     margin-top: 20px;
     text-align: center;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
+    .payment-container {
+        padding: 2% 5%;
+    }
+    .col-img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-container {
+        padding: 2% 2%;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        font-size: 0.9rem;
+        padding: 6px 4px;
+    }
+
+    .col-img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .total-box {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        white-space: nowrap;
+    }
 }
 </style>

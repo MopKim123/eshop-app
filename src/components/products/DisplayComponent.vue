@@ -92,7 +92,7 @@ function filterProducts() {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
+    grid-template-columns: repeat(5, 1fr);
     gap: 2vh;
 }
 
@@ -181,5 +181,42 @@ function filterProducts() {
     padding: 0.5vh 1vh;
     margin-left: 0.5vh;
     cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .search-bar input {
+        width: 50%;
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5vh;
+    }
+    .search-bar input {
+        width: 95%;
+        margin-left: 0;
+    }
 }
 </style>
