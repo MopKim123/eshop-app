@@ -71,6 +71,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useOrderStore } from '../../store/order.store'
 import type { OrderResponse } from '../../types/order'
 import { cancelOrder } from '../../services/order'
+import { toast } from 'vue3-toastify'
 
 const orderStore = useOrderStore()
 const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
@@ -100,14 +101,10 @@ function canCancel(order: OrderResponse): boolean {
 
 async function cancel(orderId: number) {
     cancelOrder(orderId)
+    toast.warn("Order has been cancelled!")
     orderStore.updateOrderStatus(orderId, 'CANCELLED')
 }
 
-const sortedOrders = computed(() =>
-    [...orderStore.order].sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-)
 </script>
 
 <style scoped>

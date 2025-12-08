@@ -5,6 +5,7 @@
         </div>
 
         <div class="right-section">
+
             
             <!-- CART ICON -->
             <img 

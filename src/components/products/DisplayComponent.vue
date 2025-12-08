@@ -36,6 +36,7 @@ import { useProductStore } from '../../store/product.store'
 import type { ProductResponse } from '../../types/product'
 import { useRouter } from 'vue-router'
 import { addToCart } from '../../services/cart'
+import { toast } from 'vue3-toastify'
 
 
 const router = useRouter()
@@ -53,6 +54,7 @@ function goToProduct(product: ProductResponse) {
 
 function addProductToCart(product: ProductResponse) {
     addToCart(product.id, 1)
+    toast.success("Added to cart")
 }
 
 

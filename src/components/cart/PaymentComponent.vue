@@ -47,6 +47,7 @@ import { ref, computed, onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { useCartStore } from "../../store/cart.store"
 import { checkout, getOrders } from "../../services/order"
+import { toast } from "vue3-toastify"
 
 const cartStore = useCartStore()
 const router = useRouter()
@@ -68,6 +69,7 @@ function placeOrder() {
     alert(`Order placed! Total: ₱${totalAmount.value.toFixed(2)}`)
     checkout()
     getOrders()
+    toast.success("Checkout successful!")
     router.push("/order")
 }
 </script>

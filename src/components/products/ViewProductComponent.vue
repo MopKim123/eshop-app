@@ -38,8 +38,11 @@
 import { computed, ref } from "vue" 
 import { useProductStore } from "../../store/product.store";
 import type { ProductResponse } from "../../types/product"
-import { addToCart } from "../../services/cart";
+import { addToCart } from "../../services/cart"; 
+import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
 
+const router = useRouter()
 const productStore = useProductStore()
 const productImages = import.meta.glob('../../assets/products/*.png', { eager: true, as: 'url' })
 
@@ -50,8 +53,9 @@ async function addProductToCart(product: ProductResponse) {
     if (!product.id) return
 
     try {
-        await addToCart(product.id, quantity.value) // assuming userId = 1 for now
-        alert(`Added ${quantity.value} x ${product.name} to cart!`)
+        await addToCart(product.id, quantity.value) 
+        toast.success(`Added ${quantity.value} x ${product.name} to cart!`)
+        router.push('/home')
     } catch (error) {
         console.error("Failed to add product to cart:", error)
     }
