@@ -5,9 +5,11 @@ import ProductView from '../views/ProductView.vue'
 import CartView from '../views/CartView.vue'
 import Payment from '../views/Payment.vue'
 import OrderView from '../views/OrderView.vue'
+import Register from '../views/Register.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', component: Login },  
+  { path: '/register', component: Register },  
   { path: '/home', component: Home },  
   { path: '/product', component: ProductView },  
   { path: '/cart', component: CartView },  

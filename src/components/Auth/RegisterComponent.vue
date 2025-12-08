@@ -2,12 +2,11 @@
     <!-- Backdrop always rendered -->
     <div class="modal-backdrop show"> 
         <div class="modal">
-            <h2>Login</h2>
+            <h2>Register</h2>
             <input v-model="request.username" placeholder="Username..." required/>
             <input v-model="request.password" type="password" placeholder="Password..." required/> 
-            <span>No account yet? <b @click="register">Register</b></span>
             <div class="buttons">
-                <button @click="login">Login</button> 
+                <button @click="register">Register</button> 
             </div>
         </div> 
     </div>
@@ -17,34 +16,28 @@
 <script lang="ts" setup>
 import { ref } from 'vue'  
 import type { UserRequest } from '../../types/auth'
-import { useAuthStore } from '../../store/auth.store'
 import { useRouter } from 'vue-router'
+import { registerUser } from '../../services/auth'
 import { toast } from 'vue3-toastify'
 
 const router = useRouter()
 const request = ref({} as UserRequest) 
 
-async function login() {  
-    const authStore = useAuthStore() 
+
+async function register() {  
 
     try { 
-        await authStore.login(request.value) 
+        await registerUser(request.value) 
         request.value = {} as UserRequest 
-        router.push('/home')
+        router.push('/')
     } catch (error) {  
         toast.error("Something went wrong!")
     } 
-}
-
-function register() { 
-    router.push('/register')
 } 
 </script>
 
 <style scoped>
-b{
-    cursor: pointer;
-}
+
 .modal{
     background-color: #242424; 
     border: 1px solid white;

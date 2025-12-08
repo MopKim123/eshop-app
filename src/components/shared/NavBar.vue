@@ -19,48 +19,27 @@
                 class="cart-icon"
                 alt="Cart"
                 @click="router.push('/cart')"
-            />
+            /> 
 
-            <!-- GUEST -->
-            <div class="auth" v-if="!username">
-                <h3 @click="isRegisterVisible = true">Register</h3>
-                <h3 @click="isLoginVisible = true">Login</h3>
-            </div>
-
-            <!-- LOGGED IN -->
-            <div class="app-username" v-else>
+            <div class="app-username">
                 <h3 class="username" @click="toggleMenu">{{ username }}</h3>
 
-                <div class="dropdown" v-show="showMenu">
-                    <span @click="goPortfolio">Portfolio</span>
+                <div class="dropdown" v-show="showMenu"> 
                     <span @click="logout">Log out</span>
                 </div>
             </div>
 
-        </div>
-
-        <Login 
-            :visible="isLoginVisible"
-            @update="handleLogin"
-            @close="isLoginVisible = false"
-        />
-        <Register 
-            :visible="isRegisterVisible"
-            @update="handleRegister"
-            @close="isRegisterVisible = false"
-        />
+        </div> 
     </div>
 </template>
 
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue' 
-import router from '../../router'; 
-import { useAuthStore } from '../../store/auth.store';
-import { useCartStore } from '../../store/cart.store';
+import { onMounted, ref } from 'vue'  
+import { useAuthStore } from '../../store/auth.store'; 
+import { useRouter } from 'vue-router';
 
-const isRegisterVisible = ref(false)
-const isLoginVisible = ref(false)
+const router = useRouter()
 const username = ref<string | null>(null);
 const showMenu = ref(false);
 const authStore = useAuthStore()
@@ -68,35 +47,26 @@ const authStore = useAuthStore()
 
 onMounted(async () => {
     username.value = localStorage.getItem("username")
+    const user = localStorage.getItem("username") 
+    if (!user){
+        alert('Please login!')
+        router.push('/')
+    }
 });
 
 function toggleMenu() {
     showMenu.value = !showMenu.value;
-}
-
-function goPortfolio() {
-    showMenu.value = false
-    router.push("/portfolio")
-}
+} 
 
 function logout() {
-    localStorage.removeItem("crypto_username")
-    localStorage.removeItem("crypto_token")
-    localStorage.removeItem("crypto_user_id")
+    localStorage.removeItem("username") 
+    localStorage.removeItem("userId")
     authStore.clear()
 
     showMenu.value = false
     username.value = null
     router.push("/")
-}
-
-function handleLogin(){
-    username.value = localStorage.getItem("crypto_username")
-}
-function handleRegister(){
-  isLoginVisible.value = true
-}
- 
+} 
 </script>
 
 <style scoped>
