@@ -81,6 +81,7 @@ function logout() {
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 0 5px gray;
 }
 
 .app-name {

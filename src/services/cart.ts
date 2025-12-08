@@ -40,8 +40,7 @@ export async function removeCartItem(cartItemId: number): Promise<CartResponse> 
         const res = await axios.delete<CartResponse>(
             `${API_BASE_URL}/api/cart/item/${cartItemId}`,
             { withCredentials: true }
-        )
-        console.log("Deleted cart item response:", res)
+        ) 
         return res.data
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

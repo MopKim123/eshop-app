@@ -2,12 +2,15 @@
     <!-- Backdrop always rendered -->
     <div class="modal-backdrop show"> 
         <div class="modal">
+            <form>
             <h2>Register</h2>
-            <input v-model="request.username" placeholder="Username..." required/>
-            <input v-model="request.password" type="password" placeholder="Password..." required/> 
+            <input v-model="request.username" type="text" placeholder="Username..." required/>
+            <input v-model="request.password" type="password" placeholder="Password..." required @keyup.enter="register"/> 
+            <span>Already have an account? <b @click="router.push('/')">Login</b></span>
             <div class="buttons">
                 <button @click="register">Register</button> 
             </div>
+            </form>
         </div> 
     </div>
 </template>
@@ -31,12 +34,15 @@ async function register() {
         request.value = {} as UserRequest 
         router.push('/')
     } catch (error) {  
-        toast.error("Something went wrong!")
+        toast.error("Fill the required fields!")
     } 
 } 
 </script>
 
 <style scoped>
+b{
+    cursor: pointer;
+}
 
 .modal{
     background-color: #242424; 
@@ -44,6 +50,10 @@ async function register() {
     padding: 5vh;
     width: 20vw;
     border-radius: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+form{
     display: flex;
     flex-direction: column;
 }

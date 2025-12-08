@@ -61,6 +61,7 @@
 import { ref, computed, onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { useCartStore } from "../../store/cart.store"
+import { toast } from "vue3-toastify"
 
 const cartStore = useCartStore()
 const router = useRouter()
@@ -83,11 +84,15 @@ function updateItem(item: any) {
 }
 
 function removeItem(cartItemId: number) {
-    cartStore.removeCartItem(cartItemId)
+    cartStore.removeCartItem(cartItemId)  
     cart.value.items = cart.value.items.filter(i => i.productId !== cartItemId)
 }
 
 function goToPayment() {
+    if(cartStore.cart?.id){
+        toast.info("Cart is empty!")
+        return
+    }
     router.push("/payment")
 }
 </script>
@@ -95,11 +100,10 @@ function goToPayment() {
 
 
 <style scoped>
-.cart-container {
-    width: 80%;
-    margin: auto;
-    margin-top: 40px;
+.cart-container { 
     min-height: 91.5vh;
+    background-color: #121212;
+    padding: 2% 10%;
 }
 
 .cart-header {
@@ -121,6 +125,7 @@ function goToPayment() {
     width: 100%;
     border-collapse: collapse; /* removes default borders */
     margin-top: 20px;
+    background-color: #242424;
 }
 
 .cart-table th,

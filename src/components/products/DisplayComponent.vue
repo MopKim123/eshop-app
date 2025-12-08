@@ -30,10 +30,9 @@
                     />
                 </div> 
                 <div class="product-info">
-                    <h3>{{ product.name }}</h3>
+                    <h2>{{ product.name }}</h2>
                     <p>{{ product.description }}</p>
-                    <p>Price: P{{ product.price }}</p>
-                    <p>Stock: {{ product.stock }}</p>
+                    <h3>Price: P{{ product.price }}</h3>
                 </div>
             </div>
         </div>
@@ -72,7 +71,7 @@ function goToProduct(product: ProductResponse) {
 
 function addProductToCart(product: ProductResponse) {
     addToCart(product.id, 1)
-    toast.success("Added to cart")
+    toast.success(`Added product to cart`)
 }
 
 function filterProducts() {
@@ -88,23 +87,27 @@ function filterProducts() {
 .product-display {
     padding: 2vh;
     min-height: 91.5vh;
+    background-color: #121212;
 }
 
 .product-grid {
-
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr); 
     gap: 2vh;
 }
 
 .product-card {
     background-color: #242424;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     border-radius: 1vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     color: white;
+}
+.product-card:hover{
+    background-color: #3b3b3b;
+
 }
 
 .image-wrapper {
@@ -125,12 +128,17 @@ function filterProducts() {
 
 .add-to-cart {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 5%;
+    right: 5%;
     width: 25%;
     cursor: pointer;
-    height: 15%;
-    width: 15%;
+    height: 10%;
+    width: 10%;
+}
+.add-to-cart:active{
+    height: 9.5%;
+    width: 9.5%;
+    margin: .25%;
 }
 
 .product-info {
@@ -139,9 +147,10 @@ function filterProducts() {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: left;
 }
 
-.product-info h3 {
+.product-info h3 { 
     margin: 0.5vh 0;
 }
 
@@ -163,8 +172,9 @@ function filterProducts() {
     padding: 0.5vh 1vh;
     font-size: 0.9rem;
     width: 20%;
-    height: 2vh;
+    height: 3vh;
     margin-left: auto;
+    border-radius: 10px;
 }
 
 .search-bar button {

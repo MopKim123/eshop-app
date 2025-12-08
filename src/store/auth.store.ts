@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { loginUser } from '../services/auth'
 import type { LoginResponse, UserRequest } from '../types/auth'
 import { toast } from 'vue3-toastify'
+import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -19,10 +20,11 @@ export const useAuthStore = defineStore('auth', {
             localStorage.setItem("userId", user.id.toString())
         }, 
         async login(user: UserRequest) { 
+            const router = useRouter()
             try {   
                 const data = await loginUser(user);    
-                this.setUser(data)    
-                console.log("user",data)                 
+                console.log("user",data)  
+                this.setUser(data)                   
             } catch (err) {
                 toast.error(`User not found! ${err}`) 
             }

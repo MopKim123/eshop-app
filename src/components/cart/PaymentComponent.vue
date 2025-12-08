@@ -64,23 +64,19 @@ const totalAmount = computed(() => {
     return cart.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 })
 
-function placeOrder() {
-    
-    alert(`Order placed! Total: ₱${totalAmount.value.toFixed(2)}`)
+function placeOrder() { 
     checkout()
     getOrders()
-    toast.success("Checkout successful!")
+    toast.success(`Order placed! Total: ₱${totalAmount.value.toFixed(2)}`)
     router.push("/order")
 }
 </script>
 
 <style scoped>
 .payment-container {
-    width: 80%;
-    margin: auto;
-    margin-top: 40px;
     min-height: 91.5vh;
-    color: white;
+    background-color: #121212;
+    padding: 2% 10%;
 }
 
 h2 {
@@ -91,6 +87,7 @@ h2 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #242424;
 }
 
 .cart-table th,
@@ -128,8 +125,7 @@ h2 {
     text-align: right;
 }
 
-.order-btn {
-    margin-top: 2rem;
+.order-btn { 
     background: #4CAF50;
     color: white;
     padding: 12px 24px;

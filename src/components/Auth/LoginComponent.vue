@@ -4,7 +4,7 @@
         <div class="modal">
             <h2>Login</h2>
             <input v-model="request.username" placeholder="Username..." required/>
-            <input v-model="request.password" type="password" placeholder="Password..." required/> 
+            <input v-model="request.password" type="password" placeholder="Password..." required @keyup.enter="login"/> 
             <span>No account yet? <b @click="register">Register</b></span>
             <div class="buttons">
                 <button @click="login">Login</button> 
@@ -26,6 +26,11 @@ const request = ref({} as UserRequest)
 
 async function login() {  
     const authStore = useAuthStore() 
+    const value = request.value
+    if(!value.password || !value.username){
+        toast.warn("Fill in the required fields!")
+        return
+    }
 
     try { 
         await authStore.login(request.value) 
@@ -51,6 +56,10 @@ b{
     padding: 5vh;
     width: 20vw;
     border-radius: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+form{
     display: flex;
     flex-direction: column;
 }
@@ -84,17 +93,18 @@ button:active{
 }
 
 .modal-backdrop {   
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+    background-color: #121212;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .modal-backdrop.show {
-  opacity: 1;
-  pointer-events: all;
+    opacity: 1;
+    pointer-events: all;
 } 
 </style>

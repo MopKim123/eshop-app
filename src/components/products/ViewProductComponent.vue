@@ -68,6 +68,7 @@ async function addProductToCart(product: ProductResponse) {
     gap: 4vh;
     padding: 4vh;
     height: 90vh;
+    background: #121212;
 }
 
 /* SQUARE LEFT IMAGE */
@@ -86,6 +87,7 @@ async function addProductToCart(product: ProductResponse) {
     object-fit: cover;
     border: 1px solid white;
     border-radius: 1vh;
+    background-color: #242424;
 }
 
 /* DETAILS AT TOP */

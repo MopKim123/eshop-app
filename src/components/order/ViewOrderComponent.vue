@@ -109,11 +109,9 @@ async function cancel(orderId: number) {
 
 <style scoped>
 .orders-container {
-    width: 80%;
-    margin: auto;
-    padding-top: 4vh;
-    color: white;
     min-height: 91.5vh;
+    background-color: #121212;
+    padding: 2% 10%;
 }
 
 .status-tabs {
