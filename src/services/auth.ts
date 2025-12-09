@@ -26,6 +26,7 @@ export async function registerUser(user: UserRequest): Promise<LoginResponse> {
         if(res.status) toast.success("Register Successful!")
         return res.data
     } catch (error: any) {
+        if(error.response?.data?.status === 500) toast.error(`Registration Failed! Username is Taken`)
         throw new Error(error.response?.data?.message || "Login failed")
     }
 }

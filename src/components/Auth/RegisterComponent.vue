@@ -22,24 +22,22 @@ import { registerUser } from '../../services/auth'
 import { toast } from 'vue3-toastify'
 
 const router = useRouter()
-const request = ref({} as UserRequest) 
-
+const request = ref<UserRequest>({
+    username: '',
+    password: ''
+})
 
 async function register() {  
     const value = request.value
-    if(!value.username?.length || !value.password?.length){
-        toast.error("Fill the required fields!")
+    console.log(value)
+    if (!value.username?.trim() || !value.password?.trim()) {
+        toast.warn("Fill the required fields!")
         return
     }
 
-
-    try { 
-        await registerUser(request.value) 
-        request.value = {} as UserRequest 
-        router.push('/')
-    } catch (error) {  
-        toast.error("Fill the required fields!")
-    } 
+    await registerUser(request.value) 
+    request.value = {} as UserRequest 
+    router.push('/') 
 } 
 </script>
 
