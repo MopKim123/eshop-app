@@ -1,7 +1,12 @@
 <template>
     <div class="navbar">
         <div class="app-name" @click="router.push('/home')">
-            <h2>eShoppers</h2>
+            <img 
+                src="../../assets/technology.png"
+                class="site-icon" 
+            />
+            <h2 class="bit">Bit</h2>
+            <h2 class="shop">Shop</h2>
         </div>
 
         <div class="right-section">
@@ -84,10 +89,19 @@ function logout() {
     box-shadow: 0 0 5px gray;
 }
 
+.bit{
+    color: #00d2fc;
+}
+.shop{
+    color: #6b7ed9;
+}
+
 .app-name {
     color: white;
     cursor: pointer;
     margin-left: 2vw;
+    display: flex;
+    align-items: center;
 }
 
 .right-section {
@@ -102,6 +116,12 @@ function logout() {
 .cart-icon {
     width: 30px;
     height: 30px;
+    cursor: pointer;
+    margin-left: auto;
+}
+.site-icon {
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     margin-left: auto;
 }

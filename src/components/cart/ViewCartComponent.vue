@@ -116,6 +116,10 @@ function goToPayment() {
     gap: 1vh;
 }
 
+.cart-header h2{
+    color: #00d2fc;
+}
+
 .pay-btn {
     background: #4CAF50;
     color: white;

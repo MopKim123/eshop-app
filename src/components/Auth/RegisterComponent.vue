@@ -1,16 +1,14 @@
 <template>
     <!-- Backdrop always rendered -->
     <div class="modal-backdrop show"> 
-        <div class="modal">
-            <form>
+        <div class="modal"> 
             <h2>Register</h2>
             <input v-model="request.username" type="text" placeholder="Username..." required/>
             <input v-model="request.password" type="password" placeholder="Password..." required @keyup.enter="register"/> 
             <span>Already have an account? <b @click="router.push('/')">Login</b></span>
             <div class="buttons">
                 <button @click="register">Register</button> 
-            </div>
-            </form>
+            </div> 
         </div> 
     </div>
 </template>
@@ -28,6 +26,12 @@ const request = ref({} as UserRequest)
 
 
 async function register() {  
+    const value = request.value
+    if(!value.username?.length || !value.password?.length){
+        toast.error("Fill the required fields!")
+        return
+    }
+
 
     try { 
         await registerUser(request.value) 

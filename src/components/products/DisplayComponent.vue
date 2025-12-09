@@ -151,7 +151,7 @@ function filterProducts() {
 }
 
 .product-info h3 { 
-    margin: 0.5vh 0;
+    margin: 0.5vh 0; 
 }
 
 
@@ -163,6 +163,7 @@ function filterProducts() {
 
 .search-bar h2{
     margin: 0;
+    color: #00d2fc;
 }
 
 .search-icon{
@@ -195,13 +196,13 @@ function filterProducts() {
     }
 }
 
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+@media (max-width: 768px) { 
     .search-bar input {
         width: 50%;
         margin-left: auto;
+    }
+    .product-info p {
+        display: none;
     }
 }
 
